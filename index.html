@@ -15,6 +15,8 @@
   --text:#f2f4f8;
   --muted:#9aa3b2;
   --border:rgba(255,255,255,.12);
+  --green:#28d979;
+  --yellow:#ffd166;
 }
 *{box-sizing:border-box}
 body{
@@ -36,7 +38,7 @@ body{
   border-left:1px solid rgba(255,255,255,.06);
   border-right:1px solid rgba(255,255,255,.06);
   position:relative;
-  padding-bottom:94px;
+  padding-bottom:96px;
 }
 .top{
   padding:22px 18px 14px;
@@ -79,6 +81,38 @@ body{
 .menu{
   font-size:30px;
   color:#cdd3df;
+  cursor:pointer;
+  user-select:none;
+}
+.dropdown{
+  display:none;
+  position:absolute;
+  top:72px;
+  right:16px;
+  width:250px;
+  background:linear-gradient(145deg,#111827,#080d16);
+  border:1px solid var(--border);
+  border-radius:18px;
+  z-index:40;
+  box-shadow:0 20px 55px rgba(0,0,0,.55);
+  overflow:hidden;
+}
+.dropdown.show{display:block}
+.dropdown button{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:white;
+  padding:14px;
+  text-align:left;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  font-weight:800;
+}
+.dropdown small{
+  display:block;
+  color:var(--muted);
+  font-weight:500;
+  margin-top:2px;
 }
 .title-card{
   display:flex;
@@ -100,6 +134,14 @@ h1{
   margin:0;
   letter-spacing:1px;
 }
+.zh{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:500;
+  margin-top:2px;
+  letter-spacing:0;
+}
 .sub{
   color:var(--muted);
   font-size:14px;
@@ -113,7 +155,9 @@ h1{
   padding:6px 9px;
   font-weight:900;
 }
-.form-card{
+.page{display:none}
+.page.active{display:block}
+.form-card,.content-card{
   margin:14px;
   padding:15px;
   border-radius:18px;
@@ -121,19 +165,17 @@ h1{
   background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
   box-shadow:0 20px 45px rgba(0,0,0,.35);
 }
-.step{
-  margin-bottom:20px;
-}
+.step{margin-bottom:20px}
 .step-head{
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   gap:10px;
   font-weight:900;
   color:#dfe4ed;
   letter-spacing:.4px;
   margin-bottom:10px;
 }
-.step-head span{
+.step-head span:first-child{
   color:var(--red);
   font-size:21px;
   text-shadow:0 0 10px rgba(255,31,45,.35);
@@ -148,19 +190,12 @@ input,select,textarea{
   font-size:15px;
   outline:none;
 }
-textarea{
-  min-height:105px;
-  resize:vertical;
-}
+textarea{min-height:105px;resize:vertical}
 input:focus,select:focus,textarea:focus{
   border-color:rgba(255,31,45,.75);
   box-shadow:0 0 0 3px rgba(255,31,45,.13);
 }
-.type-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-}
+.type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .type-card{
   border:1px solid rgba(255,255,255,.15);
   border-radius:12px;
@@ -170,6 +205,7 @@ input:focus,select:focus,textarea:focus{
   font-size:12px;
   font-weight:800;
   background:rgba(255,255,255,.025);
+  cursor:pointer;
 }
 .type-card.active{
   color:var(--red);
@@ -177,16 +213,8 @@ input:focus,select:focus,textarea:focus{
   background:linear-gradient(135deg,rgba(255,31,45,.2),rgba(255,31,45,.04));
   box-shadow:0 0 20px rgba(255,31,45,.12);
 }
-.type-card .ico{
-  display:block;
-  font-size:25px;
-  margin-bottom:7px;
-}
-.photo-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-}
+.type-card .ico{display:block;font-size:25px;margin-bottom:7px}
+.photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .photo-btn{
   position:relative;
   border:1px solid rgba(255,255,255,.16);
@@ -199,11 +227,7 @@ input:focus,select:focus,textarea:focus{
   font-weight:800;
   font-size:12px;
 }
-.photo-btn input{
-  position:absolute;
-  inset:0;
-  opacity:0;
-}
+.photo-btn input{position:absolute;inset:0;opacity:0}
 .photo-preview{
   margin-top:8px;
   height:115px;
@@ -215,11 +239,7 @@ input:focus,select:focus,textarea:focus{
   overflow:hidden;
   font-size:12px;
 }
-.photo-preview img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
+.photo-preview img{width:100%;height:100%;object-fit:cover}
 .submit{
   width:100%;
   border:0;
@@ -245,6 +265,17 @@ input:focus,select:focus,textarea:focus{
   text-align:center;
   font-weight:800;
 }
+.footer-logo{
+  text-align:center;
+  color:var(--red);
+  font-weight:900;
+  font-style:italic;
+  margin:18px 0 2px;
+  text-shadow:
+    0 0 8px rgba(255,31,45,.45),
+    0 0 20px rgba(255,31,45,.22);
+}
+.small{font-size:11px;color:var(--muted);text-align:center;margin-top:8px}
 .bottom-nav{
   position:fixed;
   left:50%;
@@ -264,31 +295,67 @@ input:focus,select:focus,textarea:focus{
   color:#8e96a5;
   font-size:11px;
   font-weight:800;
+  cursor:pointer;
 }
-.nav-item span{
-  display:block;
-  font-size:22px;
-  margin-bottom:3px;
-}
+.nav-item span{display:block;font-size:22px;margin-bottom:3px}
 .nav-item.active{
   color:var(--red);
   text-shadow:0 0 12px rgba(255,31,45,.35);
 }
-.footer-logo{
-  text-align:center;
-  color:var(--red);
-  font-weight:900;
-  font-style:italic;
-  margin:18px 0 2px;
-  text-shadow:
-    0 0 8px rgba(255,31,45,.45),
-    0 0 20px rgba(255,31,45,.22);
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kpi{
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.035);
+  border-radius:15px;
+  padding:14px;
 }
-.small{
-  font-size:11px;
-  color:var(--muted);
-  text-align:center;
+.kpi small{display:block;color:var(--muted);font-size:11px;font-weight:800}
+.kpi b{font-size:25px;display:block;margin-top:5px}
+.item{
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:12px;
+  margin-bottom:10px;
+  background:rgba(255,255,255,.035);
+}
+.item-title{font-weight:900;color:white}
+.item-meta{font-size:12px;color:var(--muted);margin-top:4px}
+.badge{
+  display:inline-block;
   margin-top:8px;
+  padding:5px 8px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:900;
+  color:#ffb6bc;
+  border:1px solid rgba(255,31,45,.35);
+  background:rgba(255,31,45,.11);
+}
+.rank-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.035);
+  border-radius:14px;
+  padding:12px;
+  margin-bottom:9px;
+}
+.rank-row b{color:var(--red)}
+.about-box{
+  line-height:1.5;
+  color:#d7deea;
+  font-size:14px;
+}
+.clear-btn{
+  width:100%;
+  margin-top:10px;
+  padding:13px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:13px;
+  background:rgba(255,255,255,.04);
+  color:#fff;
+  font-weight:900;
 }
 </style>
 </head>
@@ -301,89 +368,140 @@ input:focus,select:focus,textarea:focus{
         <div class="logo-oval">BYD</div>
         <div class="dreams">Build Your Dreams</div>
       </div>
-      <div class="menu">☰</div>
+      <div class="menu" onclick="toggleMenu()">☰</div>
+    </div>
+
+    <div class="dropdown" id="dropdown">
+      <button onclick="goPage('home')">Nova Sugestão <small>提交新的改善建议</small></button>
+      <button onclick="goPage('mine')">Minhas Sugestões <small>我的建议</small></button>
+      <button onclick="goPage('dash')">Dashboard <small>看板</small></button>
+      <button onclick="exportar()">Exportar dados <small>导出数据</small></button>
+      <button onclick="limparTudo()">Limpar teste <small>清除测试数据</small></button>
     </div>
   </div>
 
   <div class="title-card">
     <div class="title-icon">▣</div>
     <div>
-      <h1>SUGESTÃO KAIZEN</h1>
-      <div class="sub">Registro de Melhoria Contínua</div>
+      <h1 id="pageTitle">SUGESTÃO KAIZEN</h1>
+      <div class="sub" id="pageSubtitle">Registro de Melhoria Contínua <span class="zh">持续改善建议登记</span></div>
     </div>
-    <div class="version">V5.3</div>
+    <div class="version">V3</div>
   </div>
 
-  <div class="form-card">
-    <div class="step">
-      <div class="step-head"><span>📍</span> 1. ÁREA / LINHA</div>
-      <select id="area">
-        <option value="">Selecione a área / linha</option>
-        <option>Trim 1</option><option>Trim 2</option><option>Trim 3</option><option>Trim 4</option>
-        <option>Chassis 1</option><option>Chassis 2</option>
-        <option>Ev Line 1</option><option>Ev Line 2</option>
-        <option>Final Line</option><option>OK Line</option><option>SubAssembly</option>
-      </select>
-    </div>
+  <section id="home" class="page active">
+    <div class="form-card">
+      <div class="step">
+        <div class="step-head"><span>📍</span><div>1. ÁREA / LINHA <span class="zh">区域 / 生产线</span></div></div>
+        <select id="area">
+          <option value="">Selecione a área / linha</option>
+          <option>Trim 1</option><option>Trim 2</option><option>Trim 3</option><option>Trim 4</option>
+          <option>Chassis 1</option><option>Chassis 2</option>
+          <option>Ev Line 1</option><option>Ev Line 2</option>
+          <option>Final Line</option><option>OK Line</option><option>SubAssembly</option>
+        </select>
+      </div>
 
-    <div class="step">
-      <div class="step-head"><span>🏷️</span> 2. TIPO DE SUGESTÃO</div>
-      <div class="type-grid">
-        <div class="type-card active" onclick="setTipo(this,'Melhoria')"><span class="ico">↗</span>MELHORIA</div>
-        <div class="type-card" onclick="setTipo(this,'Correção')"><span class="ico">🔧</span>CORREÇÃO</div>
-        <div class="type-card" onclick="setTipo(this,'Ideia')"><span class="ico">💡</span>IDEIA</div>
+      <div class="step">
+        <div class="step-head"><span>🏷️</span><div>2. TIPO DE SUGESTÃO <span class="zh">建议类型</span></div></div>
+        <div class="type-grid">
+          <div class="type-card active" onclick="setTipo(this,'Melhoria')"><span class="ico">↗</span>MELHORIA<span class="zh">改善</span></div>
+          <div class="type-card" onclick="setTipo(this,'Correção')"><span class="ico">🔧</span>CORREÇÃO<span class="zh">纠正</span></div>
+          <div class="type-card" onclick="setTipo(this,'Ideia')"><span class="ico">💡</span>IDEIA<span class="zh">想法</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span>👤</span><div>3. DADOS DO OPERADOR <span class="zh">员工信息</span></div></div>
+        <input id="nome" placeholder="Nome completo / 姓名" style="margin-bottom:8px">
+        <input id="matricula" placeholder="Matrícula / 工号" style="margin-bottom:8px">
+        <input id="estacao" placeholder="Estação / posto / 工位">
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span>📄</span><div>4. SITUAÇÃO ATUAL <span class="zh">当前情况</span></div></div>
+        <textarea id="problema" maxlength="500" placeholder="Descreva a situação atual... / 请描述当前情况..."></textarea>
+        <div class="small">Máximo 500 caracteres / 最多500字</div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span>⭐</span><div>5. SUGESTÃO DE MELHORIA <span class="zh">改善建议</span></div></div>
+        <textarea id="proposta" maxlength="500" placeholder="Descreva sua sugestão de melhoria... / 请描述改善建议..."></textarea>
+        <div class="small">Máximo 500 caracteres / 最多500字</div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span>🎯</span><div>6. BENEFÍCIOS ESPERADOS <span class="zh">预期收益</span></div></div>
+        <textarea id="beneficios" maxlength="300" placeholder="Segurança, ergonomia, qualidade, produtividade... / 安全、人机工程、质量、效率..."></textarea>
+        <div class="small">Máximo 300 caracteres / 最多300字</div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span>📷</span><div>7. ANEXAR FOTOS <span class="zh">上传照片</span></div></div>
+        <div class="photo-grid">
+          <label class="photo-btn">📸 FOTO ANTES<span class="zh">改善前</span><input type="file" id="fotoAntes" accept="image/*"></label>
+          <label class="photo-btn">🖼️ FOTO DEPOIS<span class="zh">改善后</span><input type="file" id="fotoDepois" accept="image/*"></label>
+        </div>
+        <div class="photo-grid">
+          <div class="photo-preview" id="previewAntes">Preview antes</div>
+          <div class="photo-preview" id="previewDepois">Preview depois</div>
+        </div>
+      </div>
+
+      <button class="submit" onclick="salvar()">✈ ENVIAR SUGESTÃO<br><span class="zh" style="color:white">提交建议</span></button>
+      <div class="ok-msg" id="okMsg">✅ Sugestão registrada neste dispositivo para teste.<br>建议已保存在本设备用于测试。</div>
+      <div class="footer-logo">BYD Build Your Dreams</div>
+    </div>
+  </section>
+
+  <section id="mine" class="page">
+    <div class="content-card">
+      <div class="step-head"><span>👤</span><div>Minhas Sugestões <span class="zh">我的建议</span></div></div>
+      <div id="mineList"></div>
+    </div>
+  </section>
+
+  <section id="dash" class="page">
+    <div class="content-card">
+      <div class="step-head"><span>▥</span><div>Dashboard Mobile <span class="zh">移动看板</span></div></div>
+      <div class="kpi-grid">
+        <div class="kpi"><small>Total / 总数</small><b id="kTotal">0</b></div>
+        <div class="kpi"><small>Áreas / 区域</small><b id="kAreas">0</b></div>
+        <div class="kpi"><small>Melhorias / 改善</small><b id="kMelhorias">0</b></div>
+        <div class="kpi"><small>Hoje / 今天</small><b id="kHoje">0</b></div>
       </div>
     </div>
+  </section>
 
-    <div class="step">
-      <div class="step-head"><span>👤</span> 3. DADOS DO OPERADOR</div>
-      <input id="nome" placeholder="Nome completo" style="margin-bottom:8px">
-      <input id="matricula" placeholder="Matrícula" style="margin-bottom:8px">
-      <input id="estacao" placeholder="Estação / posto">
+  <section id="rank" class="page">
+    <div class="content-card">
+      <div class="step-head"><span>🏆</span><div>Ranking por Área <span class="zh">区域排名</span></div></div>
+      <div id="rankList"></div>
     </div>
+  </section>
 
-    <div class="step">
-      <div class="step-head"><span>📄</span> 4. DESCRIÇÃO DA SITUAÇÃO ATUAL</div>
-      <textarea id="problema" maxlength="500" placeholder="Descreva a situação atual..."></textarea>
-      <div class="small">Máximo 500 caracteres</div>
-    </div>
-
-    <div class="step">
-      <div class="step-head"><span>⭐</span> 5. DESCRIÇÃO DA SUGESTÃO</div>
-      <textarea id="proposta" maxlength="500" placeholder="Descreva sua sugestão de melhoria..."></textarea>
-      <div class="small">Máximo 500 caracteres</div>
-    </div>
-
-    <div class="step">
-      <div class="step-head"><span>🎯</span> 6. BENEFÍCIOS ESPERADOS</div>
-      <textarea id="beneficios" maxlength="300" placeholder="Quais benefícios esperados? Segurança, ergonomia, qualidade, produtividade..."></textarea>
-      <div class="small">Máximo 300 caracteres</div>
-    </div>
-
-    <div class="step">
-      <div class="step-head"><span>📷</span> 7. ANEXAR FOTOS</div>
-      <div class="photo-grid">
-        <label class="photo-btn">📸 FOTO ANTES<input type="file" id="fotoAntes" accept="image/*"></label>
-        <label class="photo-btn">🖼️ FOTO DEPOIS<input type="file" id="fotoDepois" accept="image/*"></label>
+  <section id="about" class="page">
+    <div class="content-card">
+      <div class="step-head"><span>ⓘ</span><div>Sobre o Sistema <span class="zh">系统说明</span></div></div>
+      <div class="about-box">
+        Sistema mobile para registro rápido de sugestões Kaizen no ambiente industrial BYD.
+        <br><br>
+        BYD工业现场快速改善建议移动登记系统。
+        <br><br>
+        Nesta versão de teste, os dados ficam salvos no navegador do celular.
+        <br>
+        在此测试版本中，数据保存在手机浏览器中。
       </div>
-      <div class="photo-grid">
-        <div class="photo-preview" id="previewAntes">Preview antes</div>
-        <div class="photo-preview" id="previewDepois">Preview depois</div>
-      </div>
+      <button class="clear-btn" onclick="exportar()">Exportar dados / 导出数据</button>
     </div>
-
-    <button class="submit" onclick="salvar()">✈ ENVIAR SUGESTÃO</button>
-    <div class="ok-msg" id="okMsg">✅ Sugestão registrada neste dispositivo para teste.</div>
-
-    <div class="footer-logo">BYD Build Your Dreams</div>
-  </div>
+  </section>
 
   <div class="bottom-nav">
-    <div class="nav-item active"><span>⌂</span>INÍCIO</div>
-    <div class="nav-item"><span>👤</span>MINHAS</div>
-    <div class="nav-item"><span>▥</span>DASH</div>
-    <div class="nav-item"><span>🏆</span>RANK</div>
-    <div class="nav-item"><span>ⓘ</span>SOBRE</div>
+    <div class="nav-item active" onclick="goPage('home')"><span>⌂</span>INÍCIO<span class="zh">首页</span></div>
+    <div class="nav-item" onclick="goPage('mine')"><span>👤</span>MINHAS<span class="zh">我的</span></div>
+    <div class="nav-item" onclick="goPage('dash')"><span>▥</span>DASH<span class="zh">看板</span></div>
+    <div class="nav-item" onclick="goPage('rank')"><span>🏆</span>RANK<span class="zh">排名</span></div>
+    <div class="nav-item" onclick="goPage('about')"><span>ⓘ</span>SOBRE<span class="zh">说明</span></div>
   </div>
 
 </div>
@@ -391,12 +509,17 @@ input:focus,select:focus,textarea:focus{
 <script>
 let tipo='Melhoria';
 
+function banco(){
+  return JSON.parse(localStorage.getItem('byd_mobile_sugestoes')||'[]');
+}
+function salvarBanco(dados){
+  localStorage.setItem('byd_mobile_sugestoes',JSON.stringify(dados));
+}
 function setTipo(el,value){
   tipo=value;
   document.querySelectorAll('.type-card').forEach(x=>x.classList.remove('active'));
   el.classList.add('active');
 }
-
 function preview(inputId, previewId){
   const input=document.getElementById(inputId);
   const preview=document.getElementById(previewId);
@@ -415,22 +538,110 @@ function salvar(){
   const sugestao={
     id:'MOB-'+Date.now(),
     tipo,
-    nome:document.getElementById('nome').value,
-    matricula:document.getElementById('matricula').value,
-    area:document.getElementById('area').value,
-    estacao:document.getElementById('estacao').value,
-    problema:document.getElementById('problema').value,
-    proposta:document.getElementById('proposta').value,
-    beneficios:document.getElementById('beneficios').value,
+    nome:nome.value,
+    matricula:matricula.value,
+    area:area.value,
+    estacao:estacao.value,
+    problema:problema.value,
+    proposta:proposta.value,
+    beneficios:beneficios.value,
     data:new Date().toLocaleString('pt-BR'),
+    dataISO:new Date().toISOString().slice(0,10),
     status:'Aguardando análise'
   };
-  const banco=JSON.parse(localStorage.getItem('byd_mobile_sugestoes')||'[]');
-  banco.unshift(sugestao);
-  localStorage.setItem('byd_mobile_sugestoes',JSON.stringify(banco));
-  document.getElementById('okMsg').style.display='block';
-  window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+  if(!sugestao.nome || !sugestao.area || !sugestao.problema || !sugestao.proposta){
+    alert('Preencha pelo menos Nome, Área, Situação atual e Sugestão.\\n请至少填写姓名、区域、当前情况和建议。');
+    return;
+  }
+  const dados=banco();
+  dados.unshift(sugestao);
+  salvarBanco(dados);
+  okMsg.style.display='block';
+  renderAll();
+  setTimeout(()=>goPage('mine'),900);
 }
+
+function goPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const map={home:0,mine:1,dash:2,rank:3,about:4};
+  document.querySelectorAll('.nav-item')[map[id]].classList.add('active');
+  dropdown.classList.remove('show');
+
+  const titles={
+    home:['SUGESTÃO KAIZEN','Registro de Melhoria Contínua','持续改善建议登记'],
+    mine:['MINHAS SUGESTÕES','Registros salvos neste celular','本手机保存的记录'],
+    dash:['DASHBOARD MOBILE','Resumo das sugestões cadastradas','建议统计概览'],
+    rank:['RANKING','Participação por área / linha','区域参与排名'],
+    about:['SOBRE','Informações do sistema','系统信息']
+  };
+  pageTitle.innerText=titles[id][0];
+  pageSubtitle.innerHTML=titles[id][1]+' <span class="zh">'+titles[id][2]+'</span>';
+  renderAll();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleMenu(){
+  dropdown.classList.toggle('show');
+}
+function renderMine(){
+  const dados=banco();
+  if(!dados.length){
+    mineList.innerHTML='<div class="item"><div class="item-title">Nenhuma sugestão cadastrada</div><div class="item-meta">暂无建议记录</div></div>';
+    return;
+  }
+  mineList.innerHTML=dados.map(x=>`
+    <div class="item">
+      <div class="item-title">${x.area} • ${x.tipo}</div>
+      <div class="item-meta">${x.nome} • ${x.estacao||'-'} • ${x.data}</div>
+      <div class="item-meta">${x.proposta}</div>
+      <span class="badge">${x.status}</span>
+    </div>`).join('');
+}
+function renderDash(){
+  const dados=banco();
+  kTotal.innerText=dados.length;
+  kAreas.innerText=new Set(dados.map(x=>x.area).filter(Boolean)).size;
+  kMelhorias.innerText=dados.filter(x=>x.tipo==='Melhoria').length;
+  const hoje=new Date().toISOString().slice(0,10);
+  kHoje.innerText=dados.filter(x=>x.dataISO===hoje).length;
+}
+function renderRank(){
+  const dados=banco();
+  const map={};
+  dados.forEach(x=>{map[x.area||'Não informado']=(map[x.area||'Não informado']||0)+1});
+  const arr=Object.entries(map).sort((a,b)=>b[1]-a[1]);
+  if(!arr.length){
+    rankList.innerHTML='<div class="item"><div class="item-title">Sem dados para ranking</div><div class="item-meta">暂无排名数据</div></div>';
+    return;
+  }
+  rankList.innerHTML=arr.map((x,i)=>`
+    <div class="rank-row">
+      <span>#${i+1} ${x[0]}</span>
+      <b>${x[1]}</b>
+    </div>`).join('');
+}
+function renderAll(){
+  renderMine();
+  renderDash();
+  renderRank();
+}
+function exportar(){
+  const dados=JSON.stringify(banco(),null,2);
+  const blob=new Blob([dados],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='byd_kaizen_mobile_backup.json';
+  a.click();
+}
+function limparTudo(){
+  if(confirm('Apagar os dados de teste deste celular?\\n是否清除此手机中的测试数据？')){
+    localStorage.removeItem('byd_mobile_sugestoes');
+    renderAll();
+    alert('Dados apagados.\\n数据已清除。');
+  }
+}
+renderAll();
 </script>
 
 </body>
