@@ -4,185 +4,434 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BYD Kaizen Mobile</title>
-
 <style>
-
+:root{
+  --bg:#05070c;
+  --panel:#0c111b;
+  --card:#101722;
+  --field:#0b111a;
+  --red:#ff1f2d;
+  --red2:#d91420;
+  --text:#f2f4f8;
+  --muted:#9aa3b2;
+  --border:rgba(255,255,255,.12);
+}
+*{box-sizing:border-box}
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#08111f;
-color:white;
-padding:15px;
+  margin:0;
+  background:
+    radial-gradient(circle at 50% -10%,rgba(255,31,45,.22),transparent 28%),
+    radial-gradient(circle at 100% 20%,rgba(45,120,255,.08),transparent 26%),
+    linear-gradient(180deg,#05070c 0%,#0a0f18 48%,#05070c 100%);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
 }
-
-.container{
-max-width:500px;
-margin:auto;
+.phone{
+  max-width:430px;
+  min-height:100vh;
+  margin:0 auto;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.035),transparent 16%),
+    #060910;
+  border-left:1px solid rgba(255,255,255,.06);
+  border-right:1px solid rgba(255,255,255,.06);
+  position:relative;
+  padding-bottom:94px;
 }
-
-.card{
-background:#111b2d;
-padding:20px;
-border-radius:20px;
-margin-top:20px;
-border:1px solid rgba(255,255,255,.08);
+.top{
+  padding:22px 18px 14px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.01));
 }
-
+.brand{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.byd-logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.logo-oval{
+  width:82px;
+  height:44px;
+  border:3px solid var(--red);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:24px;
+  font-weight:900;
+  color:var(--red);
+  text-shadow:0 0 10px rgba(255,31,45,.8);
+  box-shadow:
+    0 0 10px rgba(255,31,45,.35),
+    0 0 24px rgba(255,31,45,.22),
+    inset 0 0 12px rgba(255,31,45,.15);
+}
+.dreams{
+  color:var(--red);
+  font-style:italic;
+  font-size:18px;
+  text-shadow:0 0 10px rgba(255,31,45,.35);
+}
+.menu{
+  font-size:30px;
+  color:#cdd3df;
+}
+.title-card{
+  display:flex;
+  gap:13px;
+  align-items:center;
+  padding:18px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.title-icon{
+  width:42px;height:42px;border-radius:12px;
+  display:grid;place-items:center;
+  color:var(--red);
+  border:1px solid rgba(255,31,45,.45);
+  box-shadow:0 0 18px rgba(255,31,45,.16);
+  font-size:24px;
+}
 h1{
-font-size:24px;
-margin-bottom:5px;
+  font-size:22px;
+  margin:0;
+  letter-spacing:1px;
 }
-
 .sub{
-font-size:12px;
-opacity:.7;
-margin-bottom:20px;
+  color:var(--muted);
+  font-size:14px;
+  margin-top:4px;
 }
-
-label{
-display:block;
-margin-top:14px;
-margin-bottom:5px;
-font-size:13px;
-font-weight:bold;
+.version{
+  margin-left:auto;
+  border:1px solid var(--red);
+  color:var(--red);
+  border-radius:9px;
+  padding:6px 9px;
+  font-weight:900;
 }
-
+.form-card{
+  margin:14px;
+  padding:15px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.1);
+  background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+  box-shadow:0 20px 45px rgba(0,0,0,.35);
+}
+.step{
+  margin-bottom:20px;
+}
+.step-head{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:900;
+  color:#dfe4ed;
+  letter-spacing:.4px;
+  margin-bottom:10px;
+}
+.step-head span{
+  color:var(--red);
+  font-size:21px;
+  text-shadow:0 0 10px rgba(255,31,45,.35);
+}
 input,select,textarea{
-width:100%;
-padding:14px;
-border:none;
-border-radius:12px;
-background:#0b1322;
-color:white;
-box-sizing:border-box;
+  width:100%;
+  border:1px solid rgba(255,255,255,.15);
+  background:linear-gradient(180deg,#0d121b,#090e15);
+  color:white;
+  border-radius:12px;
+  padding:14px;
+  font-size:15px;
+  outline:none;
 }
-
 textarea{
-min-height:100px;
-resize:vertical;
+  min-height:105px;
+  resize:vertical;
 }
-
-button{
-width:100%;
-padding:16px;
-margin-top:20px;
-border:none;
-border-radius:14px;
-background:#e51b23;
-color:white;
-font-weight:bold;
-font-size:15px;
+input:focus,select:focus,textarea:focus{
+  border-color:rgba(255,31,45,.75);
+  box-shadow:0 0 0 3px rgba(255,31,45,.13);
 }
-
-.logo{
-width:240px;
-display:block;
-margin:auto;
-margin-top:15px;
-filter:
-drop-shadow(0 0 8px rgba(229,27,35,.5))
-drop-shadow(0 0 20px rgba(229,27,35,.25));
+.type-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
 }
-
-.footer{
-margin-top:35px;
-text-align:center;
-opacity:.95;
+.type-card{
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:12px;
+  padding:13px 8px;
+  text-align:center;
+  color:#b9c1cf;
+  font-size:12px;
+  font-weight:800;
+  background:rgba(255,255,255,.025);
 }
-
-.footer img{
-width:260px;
-filter:
-drop-shadow(0 0 8px rgba(229,27,35,.5))
-drop-shadow(0 0 20px rgba(229,27,35,.25));
+.type-card.active{
+  color:var(--red);
+  border-color:var(--red);
+  background:linear-gradient(135deg,rgba(255,31,45,.2),rgba(255,31,45,.04));
+  box-shadow:0 0 20px rgba(255,31,45,.12);
 }
-
+.type-card .ico{
+  display:block;
+  font-size:25px;
+  margin-bottom:7px;
+}
+.photo-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+.photo-btn{
+  position:relative;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:12px;
+  padding:13px 8px;
+  text-align:center;
+  color:#c8ced9;
+  background:rgba(255,255,255,.025);
+  overflow:hidden;
+  font-weight:800;
+  font-size:12px;
+}
+.photo-btn input{
+  position:absolute;
+  inset:0;
+  opacity:0;
+}
+.photo-preview{
+  margin-top:8px;
+  height:115px;
+  border:1px dashed rgba(255,255,255,.16);
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  color:var(--muted);
+  overflow:hidden;
+  font-size:12px;
+}
+.photo-preview img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.submit{
+  width:100%;
+  border:0;
+  border-radius:14px;
+  padding:17px;
+  color:white;
+  font-size:18px;
+  font-weight:900;
+  background:linear-gradient(135deg,#ff1f2d,#cf101b);
+  box-shadow:
+    0 0 18px rgba(255,31,45,.35),
+    0 10px 30px rgba(255,31,45,.22);
+  letter-spacing:.5px;
+}
+.ok-msg{
+  display:none;
+  margin-top:12px;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid rgba(31,220,122,.28);
+  background:rgba(31,220,122,.12);
+  color:#7df0ad;
+  text-align:center;
+  font-weight:800;
+}
+.bottom-nav{
+  position:fixed;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:430px;
+  background:rgba(5,7,12,.96);
+  border-top:1px solid rgba(255,255,255,.08);
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  padding:8px 4px 12px;
+  backdrop-filter:blur(12px);
+}
+.nav-item{
+  text-align:center;
+  color:#8e96a5;
+  font-size:11px;
+  font-weight:800;
+}
+.nav-item span{
+  display:block;
+  font-size:22px;
+  margin-bottom:3px;
+}
+.nav-item.active{
+  color:var(--red);
+  text-shadow:0 0 12px rgba(255,31,45,.35);
+}
+.footer-logo{
+  text-align:center;
+  color:var(--red);
+  font-weight:900;
+  font-style:italic;
+  margin:18px 0 2px;
+  text-shadow:
+    0 0 8px rgba(255,31,45,.45),
+    0 0 20px rgba(255,31,45,.22);
+}
+.small{
+  font-size:11px;
+  color:var(--muted);
+  text-align:center;
+  margin-top:8px;
+}
 </style>
-
 </head>
-
 <body>
+<div class="phone">
 
-<div class="container">
+  <div class="top">
+    <div class="brand">
+      <div class="byd-logo">
+        <div class="logo-oval">BYD</div>
+        <div class="dreams">Build Your Dreams</div>
+      </div>
+      <div class="menu">☰</div>
+    </div>
+  </div>
 
-<img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/3/33/BYD_Auto_2022_logo.svg">
+  <div class="title-card">
+    <div class="title-icon">▣</div>
+    <div>
+      <h1>SUGESTÃO KAIZEN</h1>
+      <div class="sub">Registro de Melhoria Contínua</div>
+    </div>
+    <div class="version">V5.3</div>
+  </div>
 
-<div class="card">
+  <div class="form-card">
+    <div class="step">
+      <div class="step-head"><span>📍</span> 1. ÁREA / LINHA</div>
+      <select id="area">
+        <option value="">Selecione a área / linha</option>
+        <option>Trim 1</option><option>Trim 2</option><option>Trim 3</option><option>Trim 4</option>
+        <option>Chassis 1</option><option>Chassis 2</option>
+        <option>Ev Line 1</option><option>Ev Line 2</option>
+        <option>Final Line</option><option>OK Line</option><option>SubAssembly</option>
+      </select>
+    </div>
 
-<h1>Nova Sugestão</h1>
+    <div class="step">
+      <div class="step-head"><span>🏷️</span> 2. TIPO DE SUGESTÃO</div>
+      <div class="type-grid">
+        <div class="type-card active" onclick="setTipo(this,'Melhoria')"><span class="ico">↗</span>MELHORIA</div>
+        <div class="type-card" onclick="setTipo(this,'Correção')"><span class="ico">🔧</span>CORREÇÃO</div>
+        <div class="type-card" onclick="setTipo(this,'Ideia')"><span class="ico">💡</span>IDEIA</div>
+      </div>
+    </div>
 
-<div class="sub">
-Sistema Mobile • Lean Manufacturing • BYD
+    <div class="step">
+      <div class="step-head"><span>👤</span> 3. DADOS DO OPERADOR</div>
+      <input id="nome" placeholder="Nome completo" style="margin-bottom:8px">
+      <input id="matricula" placeholder="Matrícula" style="margin-bottom:8px">
+      <input id="estacao" placeholder="Estação / posto">
+    </div>
+
+    <div class="step">
+      <div class="step-head"><span>📄</span> 4. DESCRIÇÃO DA SITUAÇÃO ATUAL</div>
+      <textarea id="problema" maxlength="500" placeholder="Descreva a situação atual..."></textarea>
+      <div class="small">Máximo 500 caracteres</div>
+    </div>
+
+    <div class="step">
+      <div class="step-head"><span>⭐</span> 5. DESCRIÇÃO DA SUGESTÃO</div>
+      <textarea id="proposta" maxlength="500" placeholder="Descreva sua sugestão de melhoria..."></textarea>
+      <div class="small">Máximo 500 caracteres</div>
+    </div>
+
+    <div class="step">
+      <div class="step-head"><span>🎯</span> 6. BENEFÍCIOS ESPERADOS</div>
+      <textarea id="beneficios" maxlength="300" placeholder="Quais benefícios esperados? Segurança, ergonomia, qualidade, produtividade..."></textarea>
+      <div class="small">Máximo 300 caracteres</div>
+    </div>
+
+    <div class="step">
+      <div class="step-head"><span>📷</span> 7. ANEXAR FOTOS</div>
+      <div class="photo-grid">
+        <label class="photo-btn">📸 FOTO ANTES<input type="file" id="fotoAntes" accept="image/*"></label>
+        <label class="photo-btn">🖼️ FOTO DEPOIS<input type="file" id="fotoDepois" accept="image/*"></label>
+      </div>
+      <div class="photo-grid">
+        <div class="photo-preview" id="previewAntes">Preview antes</div>
+        <div class="photo-preview" id="previewDepois">Preview depois</div>
+      </div>
+    </div>
+
+    <button class="submit" onclick="salvar()">✈ ENVIAR SUGESTÃO</button>
+    <div class="ok-msg" id="okMsg">✅ Sugestão registrada neste dispositivo para teste.</div>
+
+    <div class="footer-logo">BYD Build Your Dreams</div>
+  </div>
+
+  <div class="bottom-nav">
+    <div class="nav-item active"><span>⌂</span>INÍCIO</div>
+    <div class="nav-item"><span>👤</span>MINHAS</div>
+    <div class="nav-item"><span>▥</span>DASH</div>
+    <div class="nav-item"><span>🏆</span>RANK</div>
+    <div class="nav-item"><span>ⓘ</span>SOBRE</div>
+  </div>
+
 </div>
 
-<label>Nome operador</label>
-<input>
+<script>
+let tipo='Melhoria';
 
-<label>Matrícula</label>
-<input>
+function setTipo(el,value){
+  tipo=value;
+  document.querySelectorAll('.type-card').forEach(x=>x.classList.remove('active'));
+  el.classList.add('active');
+}
 
-<label>Área / Linha</label>
+function preview(inputId, previewId){
+  const input=document.getElementById(inputId);
+  const preview=document.getElementById(previewId);
+  input.addEventListener('change',e=>{
+    const file=e.target.files[0];
+    if(!file)return;
+    const reader=new FileReader();
+    reader.onload=()=>preview.innerHTML='<img src="'+reader.result+'">';
+    reader.readAsDataURL(file);
+  });
+}
+preview('fotoAntes','previewAntes');
+preview('fotoDepois','previewDepois');
 
-<select>
-
-<option>Trim 1</option>
-<option>Trim 2</option>
-<option>Trim 3</option>
-<option>Trim 4</option>
-<option>Chassis 1</option>
-<option>Chassis 2</option>
-<option>Ev Line 1</option>
-<option>Ev Line 2</option>
-<option>Final Line</option>
-<option>OK Line</option>
-<option>SubAssembly</option>
-
-</select>
-
-<label>Estação</label>
-<input>
-
-<label>Categoria</label>
-
-<select>
-
-<option>Segurança</option>
-<option>Ergonomia</option>
-<option>Qualidade</option>
-<option>Lean Manufacturing</option>
-<option>Produtividade</option>
-<option>Redução de custos</option>
-<option>Logística</option>
-<option>Processo</option>
-<option>Outros</option>
-
-</select>
-
-<label>Problema identificado</label>
-<textarea></textarea>
-
-<label>Proposta de melhoria</label>
-<textarea></textarea>
-
-<label>Foto antes</label>
-<input type="file">
-
-<label>Foto depois</label>
-<input type="file">
-
-<button>
-ENVIAR SUGESTÃO
-</button>
-
-</div>
-
-<div class="footer">
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/BYD_Auto_2022_logo.svg">
-
-</div>
-
-</div>
+function salvar(){
+  const sugestao={
+    id:'MOB-'+Date.now(),
+    tipo,
+    nome:document.getElementById('nome').value,
+    matricula:document.getElementById('matricula').value,
+    area:document.getElementById('area').value,
+    estacao:document.getElementById('estacao').value,
+    problema:document.getElementById('problema').value,
+    proposta:document.getElementById('proposta').value,
+    beneficios:document.getElementById('beneficios').value,
+    data:new Date().toLocaleString('pt-BR'),
+    status:'Aguardando análise'
+  };
+  const banco=JSON.parse(localStorage.getItem('byd_mobile_sugestoes')||'[]');
+  banco.unshift(sugestao);
+  localStorage.setItem('byd_mobile_sugestoes',JSON.stringify(banco));
+  document.getElementById('okMsg').style.display='block';
+  window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+}
+</script>
 
 </body>
 </html>
