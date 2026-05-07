@@ -357,6 +357,14 @@ input:focus,select:focus,textarea:focus{
   color:#fff;
   font-weight:900;
 }
+
+.category-select-note{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:6px;
+  text-align:center;
+}
+
 </style>
 </head>
 <body>
@@ -386,7 +394,7 @@ input:focus,select:focus,textarea:focus{
       <h1 id="pageTitle">SUGESTÃO KAIZEN</h1>
       <div class="sub" id="pageSubtitle">Registro de Melhoria Contínua <span class="zh">持续改善建议登记</span></div>
     </div>
-    <div class="version">V3</div>
+    <div class="version">V4</div>
   </div>
 
   <section id="home" class="page active">
@@ -403,41 +411,63 @@ input:focus,select:focus,textarea:focus{
       </div>
 
       <div class="step">
-        <div class="step-head"><span>🏷️</span><div>2. TIPO DE SUGESTÃO <span class="zh">建议类型</span></div></div>
-        <div class="type-grid">
-          <div class="type-card active" onclick="setTipo(this,'Melhoria')"><span class="ico">↗</span>MELHORIA<span class="zh">改善</span></div>
-          <div class="type-card" onclick="setTipo(this,'Correção')"><span class="ico">🔧</span>CORREÇÃO<span class="zh">纠正</span></div>
-          <div class="type-card" onclick="setTipo(this,'Ideia')"><span class="ico">💡</span>IDEIA<span class="zh">想法</span></div>
-        </div>
+        <div class="step-head"><span>🏷️</span><div>2. CATEGORIA <span class="zh">类别</span></div></div>
+        <select id="categoria">
+          <option value="">Selecione a categoria / 选择类别</option>
+          <option>Segurança</option>
+          <option>Ergonomia</option>
+          <option>Qualidade</option>
+          <option>Redução de custos</option>
+          <option>Meio ambiente</option>
+          <option>Lean Manufacturing</option>
+          <option>Produtividade</option>
+          <option>Processo</option>
+          <option>Logística</option>
+          <option>Outros</option>
+        </select>
+        <div class="category-select-note">Campo padronizado para alimentar o dashboard / 标准字段用于看板统计</div>
       </div>
 
       <div class="step">
-        <div class="step-head"><span>👤</span><div>3. DADOS DO OPERADOR <span class="zh">员工信息</span></div></div>
+        <div class="step-head"><span>🧑‍🏭</span><div>3. LÍDER RESPONSÁVEL <span class="zh">负责人 / 班组长</span></div></div>
+        <select id="lider">
+          <option value="">Selecione o líder responsável / 选择负责人</option>
+          <option>Marcos Lima</option>
+          <option>Bruna Rocha</option>
+          <option>Rafael Costa</option>
+          <option>Engenharia Processo</option>
+          <option>Supervisor Produção</option>
+        </select>
+        <div class="category-select-note">Evita duplicidade no ranking de líderes / 避免班组长排名重复</div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span>👤</span><div>4. DADOS DO OPERADOR <span class="zh">员工信息</span></div></div>
         <input id="nome" placeholder="Nome completo / 姓名" style="margin-bottom:8px">
         <input id="matricula" placeholder="Matrícula / 工号" style="margin-bottom:8px">
         <input id="estacao" placeholder="Estação / posto / 工位">
       </div>
 
       <div class="step">
-        <div class="step-head"><span>📄</span><div>4. SITUAÇÃO ATUAL <span class="zh">当前情况</span></div></div>
+        <div class="step-head"><span>📄</span><div>5. SITUAÇÃO ATUAL <span class="zh">当前情况</span></div></div>
         <textarea id="problema" maxlength="500" placeholder="Descreva a situação atual... / 请描述当前情况..."></textarea>
         <div class="small">Máximo 500 caracteres / 最多500字</div>
       </div>
 
       <div class="step">
-        <div class="step-head"><span>⭐</span><div>5. SUGESTÃO DE MELHORIA <span class="zh">改善建议</span></div></div>
+        <div class="step-head"><span>⭐</span><div>6. SUGESTÃO DE MELHORIA <span class="zh">改善建议</span></div></div>
         <textarea id="proposta" maxlength="500" placeholder="Descreva sua sugestão de melhoria... / 请描述改善建议..."></textarea>
         <div class="small">Máximo 500 caracteres / 最多500字</div>
       </div>
 
       <div class="step">
-        <div class="step-head"><span>🎯</span><div>6. BENEFÍCIOS ESPERADOS <span class="zh">预期收益</span></div></div>
+        <div class="step-head"><span>🎯</span><div>7. BENEFÍCIOS ESPERADOS <span class="zh">预期收益</span></div></div>
         <textarea id="beneficios" maxlength="300" placeholder="Segurança, ergonomia, qualidade, produtividade... / 安全、人机工程、质量、效率..."></textarea>
         <div class="small">Máximo 300 caracteres / 最多300字</div>
       </div>
 
       <div class="step">
-        <div class="step-head"><span>📷</span><div>7. ANEXAR FOTOS <span class="zh">上传照片</span></div></div>
+        <div class="step-head"><span>📷</span><div>8. ANEXAR FOTOS <span class="zh">上传照片</span></div></div>
         <div class="photo-grid">
           <label class="photo-btn">📸 FOTO ANTES<span class="zh">改善前</span><input type="file" id="fotoAntes" accept="image/*"></label>
           <label class="photo-btn">🖼️ FOTO DEPOIS<span class="zh">改善后</span><input type="file" id="fotoDepois" accept="image/*"></label>
@@ -467,7 +497,7 @@ input:focus,select:focus,textarea:focus{
       <div class="kpi-grid">
         <div class="kpi"><small>Total / 总数</small><b id="kTotal">0</b></div>
         <div class="kpi"><small>Áreas / 区域</small><b id="kAreas">0</b></div>
-        <div class="kpi"><small>Melhorias / 改善</small><b id="kMelhorias">0</b></div>
+        <div class="kpi"><small>Categorias / 类别</small><b id="kCategorias">0</b></div>
         <div class="kpi"><small>Hoje / 今天</small><b id="kHoje">0</b></div>
       </div>
     </div>
@@ -488,9 +518,9 @@ input:focus,select:focus,textarea:focus{
         <br><br>
         BYD工业现场快速改善建议移动登记系统。
         <br><br>
-        Nesta versão de teste, os dados ficam salvos no navegador do celular.
+        Nesta versão de teste, os dados ficam salvos no navegador do celular. A categoria e o líder já seguem o padrão do dashboard desktop.
         <br>
-        在此测试版本中，数据保存在手机浏览器中。
+        在此测试版本中，数据保存在手机浏览器中。类别和负责人已与桌面看板标准一致。
       </div>
       <button class="clear-btn" onclick="exportar()">Exportar dados / 导出数据</button>
     </div>
@@ -507,7 +537,7 @@ input:focus,select:focus,textarea:focus{
 </div>
 
 <script>
-let tipo='Melhoria';
+let categoriaSelecionada='';
 
 function banco(){
   return JSON.parse(localStorage.getItem('byd_mobile_sugestoes')||'[]');
@@ -516,9 +546,7 @@ function salvarBanco(dados){
   localStorage.setItem('byd_mobile_sugestoes',JSON.stringify(dados));
 }
 function setTipo(el,value){
-  tipo=value;
-  document.querySelectorAll('.type-card').forEach(x=>x.classList.remove('active'));
-  el.classList.add('active');
+  // Mantido apenas por compatibilidade visual. Na V4 a categoria é definida pelo select.
 }
 function preview(inputId, previewId){
   const input=document.getElementById(inputId);
@@ -537,7 +565,8 @@ preview('fotoDepois','previewDepois');
 function salvar(){
   const sugestao={
     id:'MOB-'+Date.now(),
-    tipo,
+    categoria:categoria.value,
+    lider:lider.value,
     nome:nome.value,
     matricula:matricula.value,
     area:area.value,
@@ -549,8 +578,8 @@ function salvar(){
     dataISO:new Date().toISOString().slice(0,10),
     status:'Aguardando análise'
   };
-  if(!sugestao.nome || !sugestao.area || !sugestao.problema || !sugestao.proposta){
-    alert('Preencha pelo menos Nome, Área, Situação atual e Sugestão.\\n请至少填写姓名、区域、当前情况和建议。');
+  if(!sugestao.nome || !sugestao.area || !sugestao.lider || !sugestao.categoria || !sugestao.problema || !sugestao.proposta){
+    alert('Preencha pelo menos Nome, Área, Líder, Categoria, Situação atual e Sugestão.\\n请至少填写姓名、区域、负责人、类别、当前情况和建议。');
     return;
   }
   const dados=banco();
@@ -592,8 +621,8 @@ function renderMine(){
   }
   mineList.innerHTML=dados.map(x=>`
     <div class="item">
-      <div class="item-title">${x.area} • ${x.tipo}</div>
-      <div class="item-meta">${x.nome} • ${x.estacao||'-'} • ${x.data}</div>
+      <div class="item-title">${x.area} • ${x.categoria || '-'}</div>
+      <div class="item-meta">${x.nome} • Líder: ${x.lider||'-'} • ${x.estacao||'-'} • ${x.data}</div>
       <div class="item-meta">${x.proposta}</div>
       <span class="badge">${x.status}</span>
     </div>`).join('');
@@ -602,7 +631,7 @@ function renderDash(){
   const dados=banco();
   kTotal.innerText=dados.length;
   kAreas.innerText=new Set(dados.map(x=>x.area).filter(Boolean)).size;
-  kMelhorias.innerText=dados.filter(x=>x.tipo==='Melhoria').length;
+  kCategorias.innerText=new Set(dados.map(x=>x.categoria).filter(Boolean)).size;
   const hoje=new Date().toISOString().slice(0,10);
   kHoje.innerText=dados.filter(x=>x.dataISO===hoje).length;
 }
