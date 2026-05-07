@@ -366,7 +366,7 @@ input:focus,select:focus,textarea:focus{
 }
 
 
-/* MOBILE V4.4 - logo neon limpo em SVG, sem fundo e sem recorte */
+/* MOBILE V4.5 - logo neon limpo em SVG, sem fundo e sem recorte */
 .car-clean-logo{
   flex:1;
   display:flex;
@@ -428,6 +428,58 @@ input:focus,select:focus,textarea:focus{
   .car-clean-text{font-size:16px}
 }
 
+
+/* V4.5 Premium Neon Logo */
+.car-premium-logo{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding-top:2px;
+}
+
+.car-premium-svg{
+  width:340px;
+  max-width:86vw;
+  height:88px;
+  overflow:visible;
+}
+
+.premium-main,
+.premium-bottom,
+.premium-detail{
+  fill:none;
+  stroke:url(#redLine);
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  filter:url(#glowRed);
+}
+
+.premium-main{
+  stroke-width:6.5;
+}
+
+.premium-bottom{
+  stroke-width:5;
+}
+
+.premium-detail{
+  stroke-width:4;
+}
+
+.car-premium-text{
+  margin-top:-10px;
+  font-size:18px;
+  font-style:italic;
+  font-weight:700;
+  color:#ff2b36;
+  letter-spacing:.5px;
+  text-shadow:
+    0 0 8px rgba(255,31,45,.82),
+    0 0 20px rgba(255,31,45,.45);
+}
+
 </style>
 </head>
 <body>
@@ -435,26 +487,49 @@ input:focus,select:focus,textarea:focus{
 
   <div class="top">
     <div class="brand">
-      <div class="car-clean-logo">
-        <svg class="car-clean-svg" viewBox="0 0 520 150" aria-label="Neon car logo">
-          <defs>
-            <filter id="redGlow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="4" result="blur1"/>
-              <feGaussianBlur stdDeviation="9" result="blur2"/>
-              <feMerge>
-                <feMergeNode in="blur2"/>
-                <feMergeNode in="blur1"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
-          </defs>
-          <path class="car-line main" d="M28 92 C72 52, 119 45, 176 54 C212 18, 305 9, 371 52 C420 48, 470 60, 498 88"/>
-          <path class="car-line detail" d="M105 91 C175 104, 302 103, 421 90"/>
-          <path class="car-line detail" d="M162 70 C194 77, 224 77, 257 68"/>
-          <path class="car-line detail" d="M354 55 C367 45, 388 48, 398 66"/>
-        </svg>
-        <div class="car-clean-text">Build Your Dreams</div>
-      </div>
+      
+<div class="car-premium-logo">
+  <svg class="car-premium-svg" viewBox="0 0 620 170" aria-label="Premium neon car">
+    <defs>
+      <filter id="glowRed" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="3" result="blur1"/>
+        <feGaussianBlur stdDeviation="8" result="blur2"/>
+        <feMerge>
+          <feMergeNode in="blur2"/>
+          <feMergeNode in="blur1"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+
+      <linearGradient id="redLine" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#ff3b45"/>
+        <stop offset="45%" stop-color="#ff1f2d"/>
+        <stop offset="100%" stop-color="#ff5964"/>
+      </linearGradient>
+    </defs>
+
+    <path class="premium-main"
+      d="M30 112
+      C72 70, 118 54, 182 62
+      C220 18, 330 6, 410 54
+      C472 50, 540 68, 590 108" />
+
+    <path class="premium-bottom"
+      d="M112 112
+      C190 126, 328 124, 478 108" />
+
+    <path class="premium-detail"
+      d="M190 82
+      C220 88, 255 88, 290 76" />
+
+    <path class="premium-detail"
+      d="M388 58
+      C405 44, 430 48, 444 70" />
+  </svg>
+
+  <div class="car-premium-text">Build Your Dreams</div>
+</div>
+
       <div class="menu" onclick="toggleMenu()">☰</div>
     </div>
 
@@ -473,7 +548,7 @@ input:focus,select:focus,textarea:focus{
       <h1 id="pageTitle">SUGESTÃO KAIZEN</h1>
       <div class="sub" id="pageSubtitle">Registro de Melhoria Contínua <span class="zh">持续改善建议登记</span></div>
     </div>
-    <div class="version">V4.4</div>
+    <div class="version">V4.5</div>
   </div>
 
   <section id="home" class="page active">
