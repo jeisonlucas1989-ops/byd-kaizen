@@ -365,6 +365,60 @@ input:focus,select:focus,textarea:focus{
   text-align:center;
 }
 
+
+/* MOBILE V4.1 - ajuste somente dos logos */
+.car-neon-logo{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+  line-height:1;
+}
+.car-neon-svg{
+  width:250px;
+  max-width:72vw;
+  height:58px;
+  overflow:visible;
+  filter:
+    drop-shadow(0 0 7px rgba(255,31,45,.60))
+    drop-shadow(0 0 18px rgba(255,31,45,.35));
+}
+.car-neon-svg path{
+  fill:none;
+  stroke:#ff1f2d;
+  stroke-width:5;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.car-neon-text{
+  color:#ff1f2d;
+  font-style:italic;
+  font-size:19px;
+  font-weight:700;
+  letter-spacing:.4px;
+  margin-left:50px;
+  margin-top:-4px;
+  text-shadow:
+    0 0 8px rgba(255,31,45,.58),
+    0 0 18px rgba(255,31,45,.28);
+}
+.title-byd-logo{
+  width:60px;
+  height:38px;
+  border:2.5px solid #ff1f2d;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:19px;
+  font-weight:900;
+  color:#ff1f2d;
+  text-shadow:0 0 9px rgba(255,31,45,.75);
+  box-shadow:
+    0 0 12px rgba(255,31,45,.38),
+    inset 0 0 10px rgba(255,31,45,.13);
+}
+
 </style>
 </head>
 <body>
@@ -372,9 +426,12 @@ input:focus,select:focus,textarea:focus{
 
   <div class="top">
     <div class="brand">
-      <div class="byd-logo">
-        <div class="logo-oval">BYD</div>
-        <div class="dreams">Build Your Dreams</div>
+      <div class="car-neon-logo">
+        <svg class="car-neon-svg" viewBox="0 0 500 120" aria-label="BYD car neon logo">
+          <path d="M30 78 C70 38, 120 34, 175 42 C215 10, 305 6, 360 42 C410 39, 455 50, 478 72" />
+          <path d="M105 78 C165 88, 285 86, 405 78" />
+        </svg>
+        <div class="car-neon-text">Build Your Dreams</div>
       </div>
       <div class="menu" onclick="toggleMenu()">☰</div>
     </div>
@@ -389,12 +446,12 @@ input:focus,select:focus,textarea:focus{
   </div>
 
   <div class="title-card">
-    <div class="title-icon">▣</div>
+    <div class="title-byd-logo">BYD</div>
     <div>
       <h1 id="pageTitle">SUGESTÃO KAIZEN</h1>
       <div class="sub" id="pageSubtitle">Registro de Melhoria Contínua <span class="zh">持续改善建议登记</span></div>
     </div>
-    <div class="version">V4</div>
+    <div class="version">V4.1</div>
   </div>
 
   <section id="home" class="page active">
